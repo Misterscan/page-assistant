@@ -323,10 +323,10 @@
   // ─── Constants ─────────────────────────────────────────────────────────────
 
   const TASK_LABELS = {
-    summarize:   'Summarize this page',
-    explain:     'Explain this page',
-    keypoints:   'Extract key points',
-    actionitems: 'Find action items',
+    summarize:   'Summarize the page(s)',
+    explain:     'Explain the page(s)',
+    keypoints:   'Extract key points from the page(s)',
+    actionitems: 'Find action items on the page(s)',
     selection:   'Explain selected text',
   };
 

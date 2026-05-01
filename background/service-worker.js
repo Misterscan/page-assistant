@@ -67,9 +67,9 @@ Evaluate [USER_QUERY] against the backdrop of [PAGE_CONTENT] and [CONTEXT_URL]. 
 /** Build the user-turn text for each task type. */
 const buildPrompt = {
   summarize:   (content)           => `Summarize this page in 5-7 concise bullet points:\n\n${content}`,
-  explain:     (content)           => `Explain what this page is about in plain, simple language a non-expert would understand:\n\n${content}`,
-  keypoints:   (content)           => `Extract the most important key points from this page as a bullet list:\n\n${content}`,
-  actionitems: (content)           => `Find all action items, tasks, deadlines, or next steps mentioned on this page. If none exist, say so clearly:\n\n${content}`,
+  explain:     (content)           => `Explain what the page(s) are about in plain, simple language a non-expert would understand:\n\n${content}`,
+  keypoints:   (content)           => `Extract the most important key points from the page(s) as a bullet list:\n\n${content}`,
+  actionitems: (content)           => `Find all action items, tasks, deadlines, or next steps mentioned on the page(s). If none exist, say so clearly:\n\n${content}`,
   selection:   (selectedText)      => `Explain the following selected text:\n\n"${selectedText}"`,
   custom:      (content, question) => `${question}\n\nPage content:\n${content}`,
   followup:    (question)          => question,
