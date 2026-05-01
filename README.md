@@ -74,7 +74,7 @@ Click the **Page Assistant** icon in your broswer toolbar while on any webpage.
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  Browser Extension                                   │
+│  Browser Extension                                  │
 │                                                     │
 │  ┌──────────────┐      ┌──────────────────────────┐ │
 │  │  popup.html  │─────▶│  service-worker.js       │ │
@@ -82,13 +82,13 @@ Click the **Page Assistant** icon in your broswer toolbar while on any webpage.
 │  │  popup.js    │      └──────────┬───────────────┘ │
 │  └──────────────┘                 │                 │
 │         │                         │ imports         │
-│         │ browser.scripting         │                │
-│         │ .executeScript           ▼                 │
-│  ┌──────▼──────────┐    ┌──────────────────────────┐ │
-│  │ content-script  │    │  api/gemini.js           │ │
-│  │ (injected on    │    │  (Gemini REST client)    │ │
-│  │  demand)        │    └──────────┬───────────────┘ │
-│  └─────────────────┘               │                 │
+│         │ browser.scripting         │               │
+│         │ .executeScript           ▼                │
+│  ┌──────▼──────────┐    ┌──────────────────────────┐│
+│  │ content-script  │    │  api/gemini.js           ││
+│  │ (injected on    │    │  (Gemini REST client)    ││
+│  │  demand)        │    └──────────┬───────────────┘│
+│  └─────────────────┘               │                │
 └───────────────────────────────────┼─────────────────┘
                                     │ HTTPS fetch
                                     ▼
