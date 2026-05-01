@@ -39,7 +39,7 @@ conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 **1. Clone or download this repository**
 
 ```
-cd my-personal-extension-helper
+cd page-assistant
 ```
 
 **2. Run the setup script**
@@ -61,7 +61,7 @@ The script will:
 1. Open `chrome://extensions`
 2. Enable **Developer mode** (toggle in the top-right corner)
 3. Click **Load unpacked**
-4. Select this folder (`my-personal-extension-helper`)
+4. Select this folder (`page-assistant`)
 
 **4. Use it**
 
@@ -132,7 +132,7 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 ## File structure
 
 ```
-my-personal-extension-helper/
+page-assistant/
 ├── manifest.json               # MV3 extension manifest
 ├── config.js                   # Gitignored — your Gemini API key
 ├── config.example.js           # Template for config.js
