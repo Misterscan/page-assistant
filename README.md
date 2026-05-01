@@ -1,6 +1,6 @@
 # Page Assistant
 
-A Chrome Extension that acts as an AI copilot for any web page you're viewing.
+A Browser Extension that acts as an AI copilot for any web page you're viewing.
 Ask questions, get summaries, extract key information, and have follow-up
 conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 
@@ -39,7 +39,7 @@ conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 **1. Clone or download this repository**
 
 ```
-cd my-personal-extension-helper
+cd page-assistant
 ```
 
 **2. Run the setup script**
@@ -56,12 +56,12 @@ The script will:
 > **Tip:** You can also pass your key directly:
 > `node setup.js YOUR_API_KEY_HERE`
 
-**3. Load the extension in Chrome**
+**3. Load the extension in your bro**
 
-1. Open `chrome://extensions`
+1. Open `browser://extensions`
 2. Enable **Developer mode** (toggle in the top-right corner)
 3. Click **Load unpacked**
-4. Select this folder (`my-personal-extension-helper`)
+4. Select this folder (`page-assistant`)
 
 **4. Use it**
 
@@ -98,7 +98,7 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 
 ### Message flow
 
-1. **User opens side panel** (via extension icon or Keyboard Shortcut)
+1. **User opens side panel (or popup window)** (via extension icon or Keyboard Shortcut)
 2. **User clicks** a quick-action button or types a request
 3. **`popup.js`** sends `{ action: 'analyze', task, question, conversationHistory, tabId }` to the service worker
 4. **`service-worker.js`** grabs the current tab URL and injects `content-script.js` into the active tab
@@ -107,14 +107,14 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 7. The service worker builds a prompt and calls **`api/gemini.js`**
 8. `gemini.js` POSTs to `https://generativelanguage.googleapis.com/...gemini-3.1-flash-lite-preview` with Grounding/Google Search enabled.
 9. The response and token usage flows back through the service worker to the popup
-10. **`popup.js`** saves the history to `chrome.storage.local` and renders the answer with full markdown support (via `marked.js` and `DOMPurify`).
+10. **`popup.js`** saves the history to `browserAPI.storage.local` and renders the answer with full markdown support (via `marked.js` and `DOMPurify`).
 
 ### Privacy design
 
 | Concern | Behaviour |
 |---|---|
 | Automatic page reading | Never. Content is only extracted after a user action in the Side Panel. |
-| Data storage | Conversation history is saved locally via `chrome.storage.local` to persist across sessions but never leaves your computer. |
+| Data storage | Conversation history is saved locally via `browserAPI.storage.local` to persist across sessions but never leaves your computer. |
 | What's sent to Google | The page text/URL and your question. |
 | Long pages | Truncated at 32 000 characters. A "Truncated" badge appears along with a Token Count. |
 
@@ -174,7 +174,7 @@ my-personal-extension-helper/
 ## Updating your API key
 
 Delete `config.js` and re-run `node setup.js`, or edit `config.js` directly.  
-After changing the key, reload the extension at `chrome://extensions`.
+After changing the key, reload the extension at `browser://extensions`.
 
 ---
 
