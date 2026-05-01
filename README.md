@@ -8,7 +8,7 @@ conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 
 ## Features
 
-- **Side Panel Interface** — Stays open alongside your browser while you browse different tabs
+- **Side Panel / Popup Interface** — Stays open alongside your browser while you browse different tabs
 - **Summarize** — Get a concise 5-7 bullet summary of any page
 - **Explain** — Plain-language explanation for non-experts
 - **Key Points** — The most important takeaways, as a bullet list
