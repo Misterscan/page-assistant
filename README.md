@@ -83,13 +83,13 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 │  │  popup.js    │      └──────────┬───────────────┘ │
 │  └──────────────┘                 │                 │
 │         │                         │ imports         │
-│         │ chrome.scripting         │                 │
-│         │ .executeScript           ▼                 │
-│  ┌──────▼──────────┐    ┌──────────────────────────┐ │
-│  │ content-script  │    │  api/gemini.js           │ │
-│  │ (injected on    │    │  (Gemini REST client)    │ │
-│  │  demand)        │    └──────────┬───────────────┘ │
-│  └─────────────────┘               │                 │
+│         │ chrome.scripting        │                 │
+│         │ .executeScript          ▼                 │
+│  ┌──────▼──────────┐    ┌──────────────────────────┐│
+│  │ content-script  │    │  api/gemini.js           ││
+│  │ (injected on    │    │  (Gemini REST client)    ││
+│  │  demand)        │    └─────────┬────────────────┘│
+│  └─────────────────┘              │                 │
 └───────────────────────────────────┼─────────────────┘
                                     │ HTTPS fetch
                                     ▼
