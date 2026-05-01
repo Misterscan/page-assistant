@@ -31,7 +31,6 @@ conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) v18 or later (only needed for setup)
-- Chrome 116 or later
 - A [Gemini API key](https://aistudio.google.com/apikey) (free tier available)
 
 ### Steps
@@ -56,7 +55,7 @@ The script will:
 > **Tip:** You can also pass your key directly:
 > `node setup.js YOUR_API_KEY_HERE`
 
-**3. Load the extension in your bro**
+**3. Load the extension in your browser**
 
 1. Open `browser://extensions`
 2. Enable **Developer mode** (toggle in the top-right corner)
@@ -65,7 +64,7 @@ The script will:
 
 **4. Use it**
 
-Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
+Click the **Page Assistant** icon in your broswer toolbar while on any webpage.
 
 ---
 
@@ -75,7 +74,7 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  Chrome Extension                                   │
+│  Browser Extension                                   │
 │                                                     │
 │  ┌──────────────┐      ┌──────────────────────────┐ │
 │  │  popup.html  │─────▶│  service-worker.js       │ │
@@ -83,7 +82,7 @@ Click the **Page Assistant** icon in your Chrome toolbar while on any webpage.
 │  │  popup.js    │      └──────────┬───────────────┘ │
 │  └──────────────┘                 │                 │
 │         │                         │ imports         │
-│         │ chrome.scripting         │                 │
+│         │ browser.scripting         │                │
 │         │ .executeScript           ▼                 │
 │  ┌──────▼──────────┐    ┌──────────────────────────┐ │
 │  │ content-script  │    │  api/gemini.js           │ │
