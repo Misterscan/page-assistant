@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Assistant Options</title>
+  <link rel="icon" href="../icons/favicon2.ico" />
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="../icons/icon48.png" class="header-icon" alt="" />
+      <h1>Page Assistant Options</h1>
+    </header>
+
+    <main class="main">
+      <div class="card">
+        <h2>Custom System Prompt</h2>
+        <p class="desc">
+          Customize how Page Assistant responds by changing its core instructions.
+          This prompt determines its persona and formatting rules. Leave blank to use the default prompt.
+        </p>
+
+        <textarea id="system-prompt" rows="8" placeholder="Loading..."></textarea>
+        
+        <div class="actions">
+          <button id="btn-reset" class="btn secondary">Reset to Default</button>
+          <button id="btn-save" class="btn primary">Save Changes</button>
+        </div>
+        <div id="status" class="status"></div>
+      </div>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

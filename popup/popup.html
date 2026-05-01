@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Assistant</title>
+  <link rel="icon" href="../icons/favicon2.ico" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ── Header ───────────────────────────────────────────────────── -->
+    <header class="header">
+      <div class="header-left">
+        <img src="../icons/icon48.png" class="header-icon" alt="" />
+        <span class="header-title">Page Assistant</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-export" title="Export conversation" aria-label="Export conversation">
+          <!-- Download icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </button>
+        <button class="btn-icon" id="btn-clear" title="Clear conversation" aria-label="Clear conversation">
+          <!-- Trash icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <path d="M10 11v6M14 11v6"></path>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Page info bar (shown after first successful extraction) ─── -->
+    <div id="page-info" class="page-info hidden" aria-live="polite">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" class="page-info-icon">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span id="page-title-text" class="page-title-text"></span>
+      <span id="truncation-badge" class="truncation-badge hidden" title="Page was too long; only the first ~32 000 characters were sent to the AI">Truncated</span>
+      <span id="token-counter" class="token-counter hidden" title="Tokens used in the last request"></span>
+    </div>
+
+    <!-- ── Quick action buttons ──────────────────────────────────────── -->
+    <div class="quick-actions" role="toolbar" aria-label="Quick actions">
+      <button class="action-btn" data-task="summarize"   >Summarize</button>
+      <button class="action-btn" data-task="explain"     >Explain</button>
+      <button class="action-btn" data-task="keypoints"   >Key Points</button>
+      <button class="action-btn" data-task="actionitems" >Action Items</button>
+      <button class="action-btn" data-task="selection"   >Explain Selection</button>
+    </div>
+
+    <!-- ── Chat history ──────────────────────────────────────────────── -->
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Conversation">
+      <div class="empty-state" id="empty-state">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" class="empty-icon">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <p>Use a quick action or ask anything about the page you're viewing.</p>
+      </div>
+    </div>
+
+    <!-- ── Loading indicator ─────────────────────────────────────────── -->
+    <div class="loading-bar hidden" id="loading" aria-live="polite" aria-label="Loading">
+      <div class="spinner"></div>
+      <span id="loading-text">Reading page…</span>
+    </div>
+
+    <!-- ── Input area ────────────────────────────────────────────────── -->
+    <div class="input-area">
+      <textarea
+        id="user-input"
+        class="user-input"
+        placeholder="Ask a question about this page…"
+        rows="2"
+        aria-label="Your question"
+      ></textarea>
+      <button class="btn-send" id="btn-send" title="Send (Enter)" aria-label="Send">
+        <!-- Send / paper-plane icon -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+  </div><!-- /.app -->
+
+  <script src="../lib/purify.min.js"></script>
+  <script src="../lib/marked.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
