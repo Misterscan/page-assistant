@@ -196,7 +196,7 @@ async function main() {
 
 function printNextSteps() {
   console.log('\n─── Next steps ───────────────────────────────');
-  console.log('  1. Open chrome://extensions in Chrome');
+  console.log('  1. Open broswer://extensions in your browser');
   console.log('  2. Enable "Developer mode" (top-right toggle)');
   console.log('  3. Click "Load unpacked" → select this folder');
   console.log('  4. Click the Page Assistant icon in your toolbar');
