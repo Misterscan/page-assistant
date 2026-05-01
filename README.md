@@ -14,6 +14,7 @@ conversations — all powered by **Google Gemini 3.1 Flash-Lite**.
 - **Key Points** — The most important takeaways, as a bullet list
 - **Action Items** — Surfaces tasks, deadlines, and next steps
 - **Explain Selection** — Highlight any text on the page and get an instant explanation
+- **Multi-page Crawling** — Automatically follows "Next" pagination links to read up to 10 consecutive pages (ideal for forum threads and long articles)
 - **Ask anything** — Type a custom question and have a multi-turn conversation
 - **Google Search Fallback** — Can browse via Google Search if direct page scraping fails
 - **Persistent History** — Your conversations are stored per session, so you never lose context
@@ -115,7 +116,7 @@ Click the **Page Assistant** icon in your broswer toolbar while on any webpage.
 | Automatic page reading | Never. Content is only extracted after a user action in the Side Panel. |
 | Data storage | Conversation history is saved locally via `browserAPI.storage.local` to persist across sessions but never leaves your computer. |
 | What's sent to Google | The page text/URL and your question. |
-| Long pages | Truncated at 32 000 characters. A "Truncated" badge appears along with a Token Count. |
+| Long pages | Scrapes the full active page and automatically follows "next" links to read up to 10 consecutive pages. A Token Count appears when finished. |
 
 ### Permissions
 
