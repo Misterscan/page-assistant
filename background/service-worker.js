@@ -21,10 +21,25 @@
 
 import { callGemini } from '../api/gemini.js';
 
-// Setup side panel behavior to open on action click
-chrome.sidePanel
-  .setPanelBehavior({ openPanelOnActionClick: true })
-  .catch((error) => console.error(error));
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
+// Setup side panel behavior to open on action click if sidePanel is supported
+if (browserAPI.sidePanel && browserAPI.sidePanel.setPanelBehavior) {
+  browserAPI.sidePanel
+    .setPanelBehavior({ openPanelOnActionClick: true })
+    .catch((error) => console.error(error));
+} else if (browserAPI.action && browserAPI.action.onClicked) {
+  // Fallback for browsers (like Opera) that don't support sidePanel and
+  // don't have a default_popup set. Open as a standalone popup window.
+  browserAPI.action.onClicked.addListener((tab) => {
+    browserAPI.windows.create({
+      url: browserAPI.runtime.getURL("popup/popup.html"),
+      type: "popup",
+      width: 425,
+      height: 650
+    });
+  });
+}
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -78,7 +93,7 @@ const buildPrompt = {
 // ─── Message listener ─────────────────────────────────────────────────────────
 
 // Must be registered synchronously at top level (MV3 requirement).
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+browserAPI.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action !== 'analyze') return false;
 
   handleAnalyze(message)
@@ -94,12 +109,12 @@ async function handleAnalyze({ task, question, conversationHistory, tabId }) {
   // 1. Inject the content script (idempotent — the script self-guards)
   let currentUrl = '';
   try {
-    const tab = await chrome.tabs.get(tabId);
+    const tab = await browserAPI.tabs.get(tabId);
     currentUrl = tab.url || '';
   } catch {}
 
   try {
-    await chrome.scripting.executeScript({
+    await browserAPI.scripting.executeScript({
       target: { tabId },
       files:  ['content/content-script.js'],
     });
@@ -114,7 +129,7 @@ async function handleAnalyze({ task, question, conversationHistory, tabId }) {
   let pageData = null;
   if (isFirstMessage || isSelection) {
     try {
-      pageData = await chrome.tabs.sendMessage(tabId, {
+      pageData = await browserAPI.tabs.sendMessage(tabId, {
         action: isSelection ? 'getSelection' : 'getContent',
       });
     } catch {

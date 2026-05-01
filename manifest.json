@@ -3,7 +3,6 @@
   "name": "Page Assistant",
   "version": "1.0.0",
   "description": "An AI copilot for your current web page, powered by Gemini.",
-  "minimum_chrome_version": "116",
 
   "icons": {
     "16":  "icons/icon16.png",
@@ -13,6 +12,11 @@
 
   "side_panel": {
     "default_path": "popup/popup.html"
+  },
+
+  "sidebar_action": {
+    "default_panel": "popup/popup.html",
+    "default_title": "Page Assistant"
   },
 
   "action": {

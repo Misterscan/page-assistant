@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
   const DEFAULT_SYSTEM_INSTRUCTION = `\
 ### ROLE: PAGE ASSISTANT (AI WEB COPILOT)
 Act as **Page Assistant**, a sophisticated, high-context digital companion. Your goal is to transform raw web data into intuitive, human-centric intelligence. While your foundation is technical precision, your delivery should feel like a brilliant researcher presenting findings to a colleague—insightful, articulate, and engaging.
@@ -41,13 +43,13 @@ Evaluate [USER_QUERY] against the backdrop of [PAGE_CONTENT] and [CONTEXT_URL]. 
   const statusEl = document.getElementById('status');
 
   // Load existing option
-  chrome.storage.local.get(['systemInstruction'], (result) => {
+  browserAPI.storage.local.get(['systemInstruction'], (result) => {
     txtPrompt.value = result.systemInstruction !== undefined ? result.systemInstruction : DEFAULT_SYSTEM_INSTRUCTION;
   });
 
   function saveOptions() {
     const val = txtPrompt.value.trim() || DEFAULT_SYSTEM_INSTRUCTION;
-    chrome.storage.local.set({ systemInstruction: val }, () => {
+    browserAPI.storage.local.set({ systemInstruction: val }, () => {
       txtPrompt.value = val;
       showStatus('Options saved.');
     });

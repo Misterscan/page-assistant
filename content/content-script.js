@@ -15,7 +15,9 @@
   if (window.__pageAssistantLoaded) return;
   window.__pageAssistantLoaded = true;
 
-  chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
+  browserAPI.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.action === 'getContent') {
       sendResponse(extractPageContent());
       return false; // synchronous response

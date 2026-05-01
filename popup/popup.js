@@ -14,6 +14,8 @@
 (function () {
   'use strict';
 
+  const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
   // ─── State ─────────────────────────────────────────────────────────────────
 
   /**
@@ -54,7 +56,7 @@
   // ─── Init ──────────────────────────────────────────────────────────────────
 
   // Restore history from storage
-  chrome.storage.local.get(['conversationHistory', 'displayHistory', 'pageInfoShown', 'pageTitle', 'truncated'], (result) => {
+  browserAPI.storage.local.get(['conversationHistory', 'displayHistory', 'pageInfoShown', 'pageTitle', 'truncated'], (result) => {
     if (result.conversationHistory) conversationHistory = result.conversationHistory;
     if (result.pageInfoShown) pageInfoShown = result.pageInfoShown;
     
@@ -82,7 +84,7 @@
     if (pageTitle !== undefined) state.pageTitle = pageTitle;
     if (truncated !== undefined) state.truncated = truncated;
     if (lastTokens !== null) state.lastTokens = lastTokens;
-    chrome.storage.local.set(state);
+    browserAPI.storage.local.set(state);
   }
 
   // ─── Event listeners ───────────────────────────────────────────────────────
@@ -127,7 +129,14 @@
     // Get the currently active tab ID dynamically so it stays up to date in the side panel
     let currentTabId;
     try {
-      const tabs = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+      // First try the current window (works well for popups)
+      let tabs = await browserAPI.tabs.query({ active: true, currentWindow: true });
+      
+      // If none found or we're in a sidebar window context, fallback to any normal window
+      if (!tabs || tabs.length === 0 || tabs[0].url === undefined || tabs[0].windowType !== 'normal') {
+        tabs = await browserAPI.tabs.query({ active: true, windowType: 'normal' });
+      }
+
       if (tabs?.[0]?.id !== undefined) {
         currentTabId = tabs[0].id;
       }
@@ -224,7 +233,7 @@
     pageInfoShown       = false;
     lastTokens          = null;
 
-    chrome.storage.local.remove(['conversationHistory', 'displayHistory', 'pageInfoShown', 'pageTitle', 'truncated', 'lastTokens']);
+    browserAPI.storage.local.remove(['conversationHistory', 'displayHistory', 'pageInfoShown', 'pageTitle', 'truncated', 'lastTokens']);
 
     chatEl.innerHTML = '';
     chatEl.appendChild(buildEmptyState());
@@ -280,14 +289,14 @@
     document.querySelectorAll('.action-btn').forEach(b => { b.disabled = active; });
   }
 
-  // ─── Chrome message helper ─────────────────────────────────────────────────
+  // ─── Browser message helper ─────────────────────────────────────────────────
 
-  /** Wraps chrome.runtime.sendMessage in a Promise. */
+  /** Wraps browser runtime.sendMessage in a Promise. */
   function sendMessage(payload) {
     return new Promise((resolve, reject) => {
-      chrome.runtime.sendMessage(payload, (response) => {
-        if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError.message));
+      browserAPI.runtime.sendMessage(payload, (response) => {
+        if (browserAPI.runtime.lastError) {
+          reject(new Error(browserAPI.runtime.lastError.message));
         } else {
           resolve(response);
         }
